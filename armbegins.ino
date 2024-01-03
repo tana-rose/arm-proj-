@@ -1,52 +1,79 @@
 #include <Servo.h>
 
-Servo servo1;  //base
-Servo servo2;  //bicep
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
 
-int base = 0;  //base motors position
-int potenbs;   // base's potentiometer
+int pos1 = 0;  //first motors position
+int poten1;    // first potentiometer
 
-int bicep = 0;  // ditto but for bicep
-int potenbi;    // you should get the jist by now
+int pos2 = 0;
+int poten2;
 
-#define startup 5500;
-#define delayval 50;
+int pos3 = 0;
+int poten3;
 
+int pos4 = 0;
+int poten4;
 void setup() {
-
   Serial.begin(9600);
-  servo1.attach(8);
-  servo2.attach(9);
+  servo1.attach(9);
 
-  servo1.write(90);
-  servo2.write(180);
+  servo2.attach(8);
 
-  delay(startup);
+  servo3.attach(7);
 
+  servo4.attach(6);
 }
+
 void loop() {
 
-  //base starts at 90
-  //bicep starts at 180
+  poten1 = analogRead(1);
 
-  potenbs = analogRead(1);
-  potenbi = analogRead(2);
+  poten2 = analogRead(2);
 
-  base = map(potenbs, 0, 1023, 0, 180);
-  bicep = map(potenbi, 0, 1023, 0, 180);
+  poten3 = analogRead(3);
 
+  poten4 = analogRead(4);
 
-  Serial.print(potenbs);
-  Serial.print("/");
-  Serial.print(base);
+  pos1 = map(poten1, 0, 1023, 0, 180);
+
+  pos2 = map(poten2, 0, 1023, 0, 180);
+
+  pos3 = map(poten3, 0, 1023, 0, 180);
+
+  pos4 = map(poten4, 0, 1023, 0, 180);
+
+  Serial.print("{1}");
+   Serial.print(poten1);
+   Serial.print("/");
+    Serial.print(pos1);
   Serial.print("\t");
-  Serial.print(potenbi);
-  Serial.print("/");
-  Serial.print(bicep);
+
+  Serial.print("{2}");
+    Serial.print(poten2);
+     Serial.print("/");
+      Serial.print(pos2);
+  Serial.print("\t");
+
+  Serial.print("{3}");
+    Serial.print(poten3);
+      Serial.print("/");
+        Serial.print(pos3);
+  Serial.print("\t");
+
+  Serial.print("{4}");
+   Serial.print(poten4);
+     Serial.print("/");
+       Serial.print(pos4);
   Serial.println();
 
-  delay(delayval);
 
-  servo1.write(base);
-  servo2.write(bicep);
+  servo1.write(pos1);
+  servo2.write(pos2);
+  servo3.write(pos3);
+  servo4.write(pos4);
+
+  delay(50);
 }
