@@ -111,4 +111,3 @@ void loop() {
   servo6.write(pos6);
   delay(50);
 }
-
